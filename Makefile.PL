@@ -21,6 +21,11 @@ my %META = (
         'Type::Tiny'  => 0,
       },
     },
+    develop => {
+      requires => {
+        'Dumbbench' => 0,
+      },
+    },
   },
   resources => {
     repository => {
