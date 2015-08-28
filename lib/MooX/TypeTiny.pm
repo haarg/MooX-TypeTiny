@@ -31,7 +31,7 @@ __END__
 
 =head1 NAME
 
-MooX::TinyTiny - Optimized type checks for Moo + Type::Tiny
+MooX::TypeTiny - Optimized type checks for Moo + Type::Tiny
 
 =head1 SYNOPSIS
 
