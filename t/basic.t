@@ -3,12 +3,12 @@ use warnings;
 use Test::More;
 use Test::Fatal;
 use Type::Tiny;
-use Sub::Quote qw(qsub);
+use Sub::Quote qw(quote_sub);
 use Types::Standard qw(Int Num);
 
 my $int;
 BEGIN {
-  $int = Int->plus_coercions(Num,=> qsub q{ int $_ });
+  $int = Int->plus_coercions(Num,=> quote_sub(q{ int $_ }));
 }
 
 BEGIN {
