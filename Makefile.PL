@@ -18,7 +18,7 @@ my %META = (
     runtime => {
       requires => {
         'Moo'         => 0,
-        'Type::Tiny'  => 0,
+        'Type::Tiny'  => 1.000002,
       },
     },
     develop => {
