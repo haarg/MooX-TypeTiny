@@ -1,5 +1,6 @@
 Revision history for MooX::TypeTiny
 
+0.001001 - 2015-09-28
   - bump Type::Tiny prereq to a version compatible with perl 5.10
   - be compatible with older Moo versions
 
