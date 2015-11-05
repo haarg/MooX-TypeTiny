@@ -1,7 +1,7 @@
 package MooX::TypeTiny;
 use strict;
 use warnings;
-our $VERSION = '0.001001';
+our $VERSION = '0.001002';
 $VERSION =~ tr/_//d;
 
 sub import {
