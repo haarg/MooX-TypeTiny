@@ -1,5 +1,6 @@
 Revision history for MooX::TypeTiny
 
+0.001002 - 2015-11-05
   - bump Moo prereq for quotify function
 
 0.001001 - 2015-09-28
