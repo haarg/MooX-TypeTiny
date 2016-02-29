@@ -49,12 +49,9 @@ like exception {
 }, qr/attr1/,
   'exception should be for inner attribute (Standard)';
 
-{
-  local $TODO = 'Error::TypeTiny::Assertion->new ignores params if inside a Moo accessor';
-  like exception {
-    $o->attrMXTT(1.5);
-  }, qr/attr1/,
-    'exception should be for inner attribute (MooX::TypeTiny)';
-}
+like exception {
+  $o->attrMXTT(1.5);
+}, qr/attr1/,
+  'exception should be for inner attribute (MooX::TypeTiny)';
 
 done_testing;

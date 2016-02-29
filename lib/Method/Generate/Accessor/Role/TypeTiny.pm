@@ -18,7 +18,9 @@ around _generate_isa_check => sub {
 
   '('
     .($check->can_be_inlined ? $check->inline_check($value) : "${var}->check(${value})" )
-    .' or require Error::TypeTiny::Assertion, Error::TypeTiny::Assertion->throw('."\n"
+    .' or require Error::TypeTiny::Assertion,'
+    .'    local $Method::Generate::Accessor::CurrentAttribute,'
+    .'    Error::TypeTiny::Assertion->throw('."\n"
     ."  message => ${var}->get_message(${value}),\n"
     ."  type    => ${var},\n"
     ."  value   => ${value},\n"
