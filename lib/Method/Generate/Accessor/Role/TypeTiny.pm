@@ -16,18 +16,24 @@ around _generate_isa_check => sub {
     ? sprintf('$args->{%s}', quotify($init_arg))
     : sprintf('$self->{%s}', quotify($name));
 
-  '('
-    .($check->can_be_inlined ? $check->inline_check($value) : "${var}->check(${value})" )
-    .' or require Error::TypeTiny::Assertion,'
-    .'    local $Method::Generate::Accessor::CurrentAttribute,'
-    .'    Error::TypeTiny::Assertion->throw('."\n"
-    ."  message => ${var}->get_message(${value}),\n"
-    ."  type    => ${var},\n"
-    ."  value   => ${value},\n"
-    .'  attribute_name => '.quotify($name).",\n"
-    .'  attribute_step => '.quotify('isa check').",\n"
-    .'  varname        => '.quotify($varname).",\n"
-    .'))';
+  my $inline_check = $check->can_be_inlined ? $check->inline_check($value)
+                                            : "${var}->check(${value})";
+
+  join "\n",
+    '(',
+    "  ${inline_check} or do {",
+    '    require Error::TypeTiny::Assertion;',
+    '    local $Method::Generate::Accessor::CurrentAttribute;',
+    '    Error::TypeTiny::Assertion->throw(',
+    "      message => ${var}->get_message(${value}),",
+    "      type    => ${var},",
+    "      value   => ${value},",
+    '      attribute_name => '.quotify($name).',',
+    '      attribute_step => '.quotify('isa check').',',
+    '      varname        => '.quotify($varname).',',
+    '    );',
+    '  }',
+    ')';
 };
 
 around _generate_coerce => sub {
