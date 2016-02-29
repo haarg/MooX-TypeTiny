@@ -1,5 +1,6 @@
 Revision history for MooX::TypeTiny
 
+0.001003 - 2016-02-29
   - fix error reporting for checks nested inside other attributes
 
 0.001002 - 2015-11-05
