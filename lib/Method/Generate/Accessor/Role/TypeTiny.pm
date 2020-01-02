@@ -16,6 +16,19 @@ around _generate_isa_check => sub {
     ? sprintf('$args->{%s}', quotify($init_arg))
     : sprintf('$self->{%s}', quotify($name));
 
+  if (eval($check->VERSION) >= 1.007009) {
+    my $assertion = $check->inline_assert(
+      $value,
+      $var,
+      mgaca           => 0,
+      attribute_name  => $name,
+      attribute_step  => 'isa check',
+      varname         => $varname,
+    );
+    $assertion =~ s/;\z//;
+    return $assertion;
+  }
+
   my $inline_check = $check->can_be_inlined ? $check->inline_check($value)
                                             : "${var}->check(${value})";
 
