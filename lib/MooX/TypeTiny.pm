@@ -4,22 +4,26 @@ use warnings;
 our $VERSION = '0.001004';
 $VERSION =~ tr/_//d;
 
+use Moo::_Utils qw(_install_modifier);
+
 sub import {
   my $target = caller;
   require Moo;
   require Moo::Role;
 
-  unless ($Moo::MAKERS{$target} && $Moo::MAKERS{$target}{is_class}) {
-      die "MooX::TypeTiny can only be used on Moo classes.";
+  unless (Moo->is_class($target)) {
+    die "MooX::TypeTiny can only be used on Moo classes.";
   }
 
-  Moo::Role->apply_roles_to_object(
-    Moo->_accessor_maker_for($target),
-    'Method::Generate::Accessor::Role::TypeTiny',
-  );
+  _install_modifier($target, 'after', ['has', 'extends', 'with'], sub {
+    Moo::Role->apply_roles_to_object(
+      Moo->_accessor_maker_for($target),
+      'MooX::TypeTiny::Role::GenerateAccessor',
+    );
 
-  # make sure we have our own constructor
-  Moo->_constructor_maker_for($target);
+    # make sure we have our own constructor
+    Moo->_constructor_maker_for($target);
+  });
 }
 
 1;
