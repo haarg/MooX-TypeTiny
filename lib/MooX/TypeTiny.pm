@@ -15,7 +15,7 @@ sub import {
     die "MooX::TypeTiny can only be used on Moo classes.";
   }
 
-  _install_modifier($target, 'after', ['has', 'extends', 'with'], sub {
+  _install_modifier($target, 'before', ['has', 'extends', 'with'], sub {
     Moo::Role->apply_roles_to_object(
       Moo->_accessor_maker_for($target),
       'MooX::TypeTiny::Role::GenerateAccessor',
