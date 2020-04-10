@@ -44,7 +44,36 @@ around _generate_coerce => sub {
 
   my $var = '$coercion_for_'.sanitize_identifier($name);
   $self->{captures}->{$var} = \$coerce;
-  $coerce->can_be_inlined ? $coerce->inline_coercion($value) : "${var}->coerce(${value})"
+
+  my $need_temp = !$self->_is_simple_value($value);
+  my $inline_value = $value;
+  if ($need_temp) {
+    $inline_value = $value;
+    $value = '$tmp';
+  }
+
+  my $code = $coerce->can_be_inlined ? $coerce->inline_coercion($value) : "${var}->coerce(${value})";
+
+  if ($need_temp) {
+    return "do { my \$tmp = $inline_value; $code }";
+  }
+  else {
+    return $code;
+  }
 };
+
+# this doesn't need to be perfect.  false negatives are fine.
+sub _is_simple_value {
+  my ($self, $value) = @_;
+  return $value =~ /\A(
+      \$\w+(?:(?:->)?(?:\[[0-9]+\]|\{\w+\}))?
+    |
+      [0-9_.]+
+    |
+      "[^\$\@"]*"
+    |
+      '[^']*'
+  )\z/x;
+}
 
 1;
