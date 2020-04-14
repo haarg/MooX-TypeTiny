@@ -1,5 +1,6 @@
 Revision history for MooX::TypeTiny
 
+0.002_000 - 2020-04-14
   - use new Type::Tiny API for inlining which should be slightly faster
   - delay generating constructors, to allow easier use of namespace::clean
   - prevent coercions from evaluating defaults multiple times (RT#132268)
