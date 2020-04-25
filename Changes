@@ -1,5 +1,7 @@
 Revision history for MooX::TypeTiny
 
+  - fix applying method generator role multiple times, leading to C3 errors
+
 0.002001 - 2020-04-25
   - add test for use with namespace::clean
 
