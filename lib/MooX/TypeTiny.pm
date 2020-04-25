@@ -1,7 +1,7 @@
 package MooX::TypeTiny;
 use strict;
 use warnings;
-our $VERSION = '0.002001';
+our $VERSION = '0.002002';
 $VERSION =~ tr/_//d;
 
 use Moo::_Utils qw(_install_modifier);
