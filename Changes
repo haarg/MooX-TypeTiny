@@ -1,5 +1,6 @@
 Revision history for MooX::TypeTiny
 
+0.002001 - 2020-04-25
   - add test for use with namespace::clean
 
 0.002_000 - 2020-04-14
