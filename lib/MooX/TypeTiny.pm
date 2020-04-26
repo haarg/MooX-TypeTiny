@@ -17,10 +17,8 @@ sub import {
 
   _install_modifier($target, 'before', ['has', 'extends', 'with'], sub {
     my $am = Moo->_accessor_maker_for($target);
-    if (!$am->can('does') || !$am->does('MooX::TypeTiny::Role::GenerateAccessor')) {
-      Moo::Role->apply_roles_to_object(
-        $am, 'MooX::TypeTiny::Role::GenerateAccessor' );
-    }
+    $am->does($_) or Moo::Role->apply_roles_to_object($am, $_)
+      for qw(MooX::TypeTiny::Role::GenerateAccessor);
 
     # make sure we have our own constructor
     Moo->_constructor_maker_for($target);
