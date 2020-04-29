@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
+BEGIN { ::diag "starting"; }
 BEGIN {
     package MyParent;
     use Moo;
