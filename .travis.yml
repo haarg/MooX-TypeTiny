@@ -2,7 +2,9 @@ language: perl
 jobs:
   include:
     - perl: 5.8.1
-      env: AUTHOR_TESTING=0
+      env:
+        - AUTHOR_TESTING=0
+        - HARNESS_VERBOSE=1
 before_install:
   - eval $(curl https://travis-perl.github.io/init) --auto
 branches:
