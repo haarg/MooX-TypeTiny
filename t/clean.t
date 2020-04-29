@@ -8,6 +8,7 @@ BEGIN {
     use MooX::TypeTiny;
     use Types::Standard 'Str';
 
+    ::diag "looking for subs";
     # dirty namespace::clean reimplementation
     my %subs;
     BEGIN {
@@ -15,15 +16,19 @@ BEGIN {
       $subs{$_} = 1 for grep defined &{$_}, keys %{__PACKAGE__ . '::'};
     }
 
+    ::diag "got subs: " . join(' ', sort keys %subs);
+
     has mystr => (
         is => 'ro',
         isa => Str,
     );
 
+    ::diag "deleting subs";
     BEGIN {
         no strict 'refs';
         delete ${__PACKAGE__.'::'}{$_} for keys %subs;
     }
+    ::diag "deleted subs";
 }
 
 BEGIN {
