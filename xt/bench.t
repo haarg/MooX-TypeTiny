@@ -81,7 +81,7 @@ for my $attr (qw(attr_isa attr_coerce attr_isa_coerce)) {
     }
   }
 
-  if ($slow||1) {
+  if ($slow) {
     for my $op (@objects) {
       my ($name, $object) = @$op;
       my $code = $deparse->coderef2text($object->can($attr));
